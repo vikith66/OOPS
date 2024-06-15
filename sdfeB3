@@ -1,0 +1,72 @@
+Servent.java
+
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+
+public interface Servent extends Remote {
+    public double calculateTax(double amount) throws RemoteException;
+}
+
+
+Tax.java
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+
+public class Tax extends UnicastRemoteObject implements Servent {
+    
+    public Tax() throws RemoteException {
+        super();
+    }
+
+    @Override
+    public double calculateTax(double amount) throws RemoteException {
+        if (amount <= 300000)
+            return 0;
+        else if (amount <= 600000)
+            return (0.05 * amount);
+        else if (amount <= 900000)
+            return (0.1 * amount);
+        else if (amount <= 1200000)
+            return (0.15 * amount);
+        else if (amount <= 1500000)
+            return (0.2 * amount);
+        else
+            return (0.3 * amount);
+    }
+}
+
+
+
+Server.java
+import java.rmi.*;
+
+public class Server {
+    public static void main(String[] args) throws Exception {
+        Tax obj = new Tax();
+        Naming.rebind("TAX", obj);
+        System.out.println("Server Ready...");
+    }
+}
+
+
+TaxClient.java
+import java.rmi.*;
+
+public class TaxClient {
+    public static void main(String[] args) throws Exception {
+        if (args.length != 2) {
+            System.out.println("Incorrect number of arguments...");
+            System.exit(1);
+        }
+        
+        try {
+            Servent obj = (Servent) Naming.lookup("TAX");
+            String name = args[0];
+            double amount = Double.parseDouble(args[1]);
+            double tax = obj.calculateTax(amount);
+            System.out.println("Tax of " + name + " is: " + tax);
+        } catch (Exception e) {
+            System.out.println("Exception: " + e.getMessage());
+        }
+    }
+}
