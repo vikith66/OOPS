@@ -1,0 +1,44 @@
+import java.util.Scanner;
+
+public class A4 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter a sentence:");
+        String sentence = scanner.nextLine();
+        scanner.close();
+        System.out.println("Output 1: " + swapEvenWords(sentence));
+        System.out.println("Output 2: " + toggleCase(sentence));
+    }
+
+    public static String swapEvenWords(String sentence) {
+        StringBuilder result = new StringBuilder();
+        String[] words = sentence.split("\\s+");
+        for (String word : words) {
+            if (word.length() % 2 == 0) {
+                StringBuilder swapped = new StringBuilder();
+                for (int i = 0; i < word.length() - 1; i += 2) {
+                    swapped.append(word.charAt(i + 1));
+                    swapped.append(word.charAt(i));
+                }
+                result.append(swapped).append(" ");
+            } else {
+                result.append(word).append(" ");
+            }
+        }
+        return result.toString().trim();
+    }
+
+    public static String toggleCase(String sentence) {
+        StringBuilder result = new StringBuilder();
+        for (char c : sentence.toCharArray()) {
+            if (Character.isUpperCase(c)) {
+                result.append(Character.toLowerCase(c));
+            } else if (Character.isLowerCase(c)) {
+                result.append(Character.toUpperCase(c));
+            } else {
+                result.append(c);
+            }
+        }
+        return result.toString();
+    }
+}
