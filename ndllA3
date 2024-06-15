@@ -3,7 +3,7 @@ import java.util.*;
 public class A3 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Integer> arrayList = new ArrayList<>();
+        ArrayList<Integer> arrayList = new ArrayList();
         int choice;
         do {
             System.out.println("\nMenu:");
