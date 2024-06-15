@@ -1,0 +1,116 @@
+
+studentgui.jsp
+<%--
+    Document : studentgui
+    Created on : Apr 4, 2024, 9:24:21 AM
+    Author : mr
+--%>
+<%@ page import="pckindex.student" %>
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>JSP Page</title>
+</head>
+<body>
+    <h1>Enter Student Details</h1>
+    <form action="displaystudent.jsp" method="post">
+        Name: <input type="text" name="name"><br>
+        RollNo: <input type="number" name="rollno"><br>
+        Class: <input type="text" name="cls"><br>
+        Section: <input type="text" name="sec"><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>
+
+
+
+displaystudent.jsp
+<%-- 
+    Document : displaystudent
+    Created on : Apr 4, 2024, 9:35:12 AM
+    Author : mr
+--%>
+<%@ page import="pckindex.student" %>
+<%@ page contentType="text/html" pageEncoding="UTF-8" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>JSP Page</title>
+</head>
+<body>
+    <h1>Student Details</h1>
+    <%
+        String name = request.getParameter("name");
+        int rollno = Integer.parseInt(request.getParameter("rollno"));
+        String cls = request.getParameter("cls");
+        String sec = request.getParameter("sec");
+        
+        student stu = new student();
+        stu.setName(name);
+        stu.setRollNo(rollno);
+        stu.setCls(cls);
+        stu.setSec(sec);
+    %>
+    <p>Name: <%= stu.getName() %></p>
+    <p>Roll No: <%= stu.getRollNO() %></p>
+    <p>Class: <%= stu.getCls() %></p>
+    <p>Section: <%= stu.getSec() %></p>
+</body>
+</html>
+
+
+
+
+student.java
+
+package pckindex;
+
+public class student {
+    private String name;
+    private int rollno;
+    private String cls;
+    private String sec;
+    
+    public student() {
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public int getRollNO() {
+        return rollno;
+    }
+    
+    public void setRollNo(int rollno) {
+        this.rollno = rollno;
+    }
+    
+    public String getCls() {
+        return cls;
+    }
+    
+    public void setCls(String cls) {
+        this.cls = cls;
+    }
+    
+    public String getSec() {
+        return sec;
+    }
+    
+    public void setSec(String sec) {
+        this.sec = sec;
+    }
+}
+
+
+
+
