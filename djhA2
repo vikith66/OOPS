@@ -1,0 +1,19 @@
+import java.util.*;
+
+public class A2 {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter the number of elements: ");
+        int n = scanner.nextInt();
+        ArrayList<Integer> numbers = new ArrayList<>();
+        System.out.println("Enter the elements:");
+        for (int i = 0; i < n; i++) {
+            numbers.add(scanner.nextInt()); // Auto-boxing
+        }
+        Collections.sort(numbers);
+        int secondMax = numbers.get(numbers.size() - 2); // Auto-unboxing
+        int secondMin = numbers.get(1); // Auto-unboxing
+        System.out.println("Second maximum: " + secondMax);
+        System.out.println("Second minimum: " + secondMin);
+    }
+}
