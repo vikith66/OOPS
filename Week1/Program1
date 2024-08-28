@@ -1,25 +1,20 @@
-//Program For Exchanging Tue Variable
-
+//Exchange two variables without using any temporary variable.
+// Vikith 240970107
+//
 #include<iostream>
-
 using namespace std;
-
-int main(){
-
-int a,b;
-
-cout<<"Enter The First Number :";
-
-cin>>a;
-
-cout<<"Enter The Second Number :":
-
-cin>>b;
-
-a = a + b;
-
-b = a - b;
-
-a = a - b; cout<<"After Swapping Two Numbers \n":
-
-cout<<"First Number:"<<a<<endl; cout<<"Second Number: "<<b<<endl;
+int main() {
+    int a, b;
+    cout << "Enter The First Number: \n";
+    cin >> a;
+    cout << "Enter The Second Number: \n";
+    cin >> b;
+    // Swapping the values without a third variable
+    a = a + b;
+    b = a - b;
+    a = a - b;
+    cout << "After Swapping Two Numbers\n";
+    cout<< "First Number: " << a << endl;
+    cout << "Second Number: " << b << endl;
+    return 0;
+}
