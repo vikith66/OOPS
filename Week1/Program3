@@ -1,0 +1,23 @@
+//Calculate the area of a circle and a triangle.
+// VIKITH 240970107
+//
+#include <iostream>
+#include <cmath>  // For M_PI & pow function
+
+using namespace std;
+
+int main() {
+    double radius, base, height;
+    cout << "Enter the radius of the circle: "<< endl;
+    cin >> radius;
+    double circleArea = M_PI * pow(radius, 2);  // Area = π * r^2
+    cout << "The area of the circle is: " << circleArea << endl;
+    cout << "Enter the base of the triangle: " << endl;
+    cin >> base;
+    cout << "Enter the height of the triangle: " << endl;
+    cin >> height;
+    double triangleArea = 0.5 * base * height;  // Area = 1/2 * base * height
+    cout << "The area of the triangle is: " << triangleArea << endl;
+
+    return 0;
+}
