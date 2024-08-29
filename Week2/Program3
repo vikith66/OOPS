@@ -1,0 +1,152 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+
+using namespace std;
+
+class CricketPlayer {
+private:
+    string player_code;
+    string player_name;
+    int matches_played;
+    int total_runs;
+    int times_not_out;
+
+public:
+    // Default constructor
+    CricketPlayer() : player_code(""), player_name(""), matches_played(0), total_runs(0), times_not_out(0) {}
+
+    // Parameterized constructor
+    CricketPlayer(string code, string name, int matches, int runs, int not_out)
+        : player_code(code), player_name(name), matches_played(matches), total_runs(runs), times_not_out(not_out) {}
+
+    // Function to input player details
+    void input_player_details() {
+        cout << "Enter player code: ";
+        cin >> player_code;
+        cin.ignore(); // To ignore the newline character left in the input buffer
+
+        cout << "Enter player name: ";
+        getline(cin, player_name);
+
+        cout << "Enter number of matches played: ";
+        cin >> matches_played;
+
+        cout << "Enter total runs scored: ";
+        cin >> total_runs;
+
+        cout << "Enter number of times not out: ";
+        cin >> times_not_out;
+    }
+
+    // Function to calculate and return the average runs of the player
+    double calculate_average_runs() const {
+        int innings = matches_played - times_not_out;
+        return innings > 0 ? static_cast<double>(total_runs) / innings : 0.0;
+    }
+
+    // Display player details
+    void display_player_details() const {
+        cout << "Player Code: " << player_code << endl;
+        cout << "Player Name: " << player_name << endl;
+        cout << "Matches Played: " << matches_played << endl;
+        cout << "Total Runs: " << total_runs << endl;
+        cout << "Times Not Out: " << times_not_out << endl;
+        cout << "Average Runs: " << calculate_average_runs() << endl;
+    }
+
+    // Get total runs (for sorting)
+    int get_total_runs() const {
+        return total_runs;
+    }
+
+    // Static function to calculate the average runs of all players
+    static double calculate_team_average(const vector<CricketPlayer>& players) {
+        int total_runs = 0;
+        int total_innings = 0;
+        for (const auto& player : players) {
+            total_runs += player.total_runs;
+            total_innings += player.matches_played - player.times_not_out;
+        }
+        return total_innings > 0 ? static_cast<double>(total_runs) / total_innings : 0.0;
+    }
+
+    // Static function to sort and display players by total runs
+    static void display_sorted_by_runs(vector<CricketPlayer>& players) {
+        sort(players.begin(), players.end(), [](const CricketPlayer& a, const CricketPlayer& b) {
+            return a.get_total_runs() > b.get_total_runs();
+        });
+        cout << "\nPlayers sorted by total runs:\n";
+        for (const auto& player : players) {
+            player.display_player_details();
+            cout << "--------------------\n";
+        }
+    }
+};
+
+int main() {
+    vector<CricketPlayer> players;
+    int choice;
+    int num_players = 0;
+    const int MAX_PLAYERS = 10;
+
+    do {
+        cout << "\nMenu:\n";
+        cout << "1. Enter details of players\n";
+        cout << "2. Display average runs of a single player\n";
+        cout << "3. Display average runs of all players\n";
+        cout << "4. Display list of players sorted by total runs\n";
+        cout << "5. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+        case 1:
+            if (num_players < MAX_PLAYERS) {
+                CricketPlayer player;
+                player.input_player_details();
+                players.push_back(player);
+                num_players++;
+            } else {
+                cout << "Maximum number of players reached!\n";
+            }
+            break;
+
+        case 2: {
+            string code;
+            cout << "Enter player code: ";
+            cin >> code;
+            bool found = false;
+            for (const auto& player : players) {
+                if (player.get_player_code() == code) {
+                    player.display_player_details();
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                cout << "Player not found!\n";
+            }
+            break;
+        }
+
+        case 3:
+            cout << "Average runs of the team: " << CricketPlayer::calculate_team_average(players) << endl;
+            break;
+
+        case 4:
+            CricketPlayer::display_sorted_by_runs(players);
+            break;
+
+        case 5:
+            cout << "Exiting...\n";
+            break;
+
+        default:
+            cout << "Invalid choice! Please try again.\n";
+        }
+    } while (choice != 5);
+
+    return 0;
+}
