@@ -1,0 +1,64 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+class Flight {
+private:
+    int flight_number;
+    string destination;
+    float distance;
+    float fuel;
+
+    // Private member function to calculate fuel based on distance
+    void calculate_fuel() {
+        if (distance <= 1000) {
+            fuel = 500; // Fuel for distance <= 1000 kms
+        } else if (distance > 1000 && distance <= 2000) {
+            fuel = 1100; // Fuel for distance > 1000 and <= 2000 kms
+        } else if (distance > 2000) {
+            fuel = 2200; // Fuel for distance > 2000 kms
+        }
+    }
+
+public:
+    // Default constructor initializing distance to 500 kms
+    Flight() : flight_number(0), destination(""), distance(500), fuel(0) {
+        calculate_fuel();
+    }
+
+    // Function to enter flight details and calculate fuel
+    void information_entry() {
+        cout << "Enter flight number: ";
+        cin >> flight_number;
+        cin.ignore(); // To ignore the newline character left in the input buffer
+
+        cout << "Enter destination: ";
+        getline(cin, destination);
+
+        cout << "Enter distance (in kms): ";
+        cin >> distance;
+
+        calculate_fuel(); // Calculate the quantity of fuel based on the entered distance
+    }
+
+    // Function to display flight details
+    void display_info() const {
+        cout << "Flight Number: " << flight_number << endl;
+        cout << "Destination: " << destination << endl;
+        cout << "Distance: " << distance << " kms" << endl;
+        cout << "Fuel Required: " << fuel << " liters" << endl;
+    }
+};
+
+int main() {
+    Flight flight; // Create a Flight object using the default constructor
+
+    // Call the information_entry() to input flight details
+    flight.information_entry();
+
+    // Display the flight details
+    flight.display_info();
+
+    return 0;
+}
