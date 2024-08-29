@@ -1,0 +1,83 @@
+#include <iostream>
+
+using namespace std;
+
+class Complex {
+private:
+    float real;
+    float imag;
+
+public:
+    // Default constructor
+    Complex() : real(0), imag(0) {}
+
+    // Parameterized constructor
+    Complex(float r, float i) : real(r), imag(i) {}
+
+    // Function to display the complex number
+    void display() const {
+        cout << real;
+        if (imag >= 0) {
+            cout << " + " << imag << "i" << endl;
+        } else {
+            cout << " - " << -imag << "i" << endl;
+        }
+    }
+
+    // Overloaded add function to add an integer to a complex number
+    Complex add(int s1, const Complex &s2) {
+        Complex result;
+        result.real = s1 + s2.real;
+        result.imag = s2.imag;
+        return result;
+    }
+
+    // Overloaded add function to add two complex numbers
+    Complex add(const Complex &s1, const Complex &s2) {
+        Complex result;
+        result.real = s1.real + s2.real;
+        result.imag = s1.imag + s2.imag;
+        return result;
+    }
+
+    // Function to input the complex number
+    void input() {
+        cout << "Enter the real part: ";
+        cin >> real;
+        cout << "Enter the imaginary part: ";
+        cin >> imag;
+    }
+};
+
+int main() {
+    Complex c1, c2, c3;
+    int integerValue;
+
+    // User input for the complex numbers and integer
+    cout << "Enter details for the first complex number:\n";
+    c1.input();
+
+    cout << "Enter details for the second complex number:\n";
+    c2.input();
+
+    cout << "Enter an integer value: ";
+    cin >> integerValue;
+
+    // Add an integer and a complex number
+    c3 = c3.add(integerValue, c1);
+    cout << "\nResult of adding integer " << integerValue << " to complex number ";
+    c1.display();
+    cout << "is: ";
+    c3.display();
+
+    // Add two complex numbers
+    c3 = c3.add(c1, c2);
+    cout << "\nResult of adding complex numbers ";
+    c1.display();
+    cout << "and ";
+    c2.display();
+    cout << "is: ";
+    c3.display();
+
+    return 0;
+}
