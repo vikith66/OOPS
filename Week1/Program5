@@ -1,0 +1,15 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    float mm, cm, inch, feet;
+    cout << "Enter the distance in millimeters: ";
+    cin >> mm;
+    cm = mm / 10.0;
+    inch = cm / 2.5;
+    feet = inch / 12.0;
+    cout << "The distance is: " << cm << " cm" << endl;
+    cout << "The distance is: " << inch << " inches" << endl;
+    cout << "The distance is: " << feet << " feet" << endl;
+    return 0;
+}
