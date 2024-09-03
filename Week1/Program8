@@ -1,0 +1,61 @@
+#include <iostream>
+#include <string>
+#include <iomanip>  // For formatting output
+
+using namespace std;
+
+int main() {
+    string name;
+    int yearOfJoining, sem ,regNo;
+    string subjects[5] = {"Object Oriented Programming", "DBMS", "Research Methodology", "Computational Mathematics", "Web Technologies"};
+    int marks[5];
+    int totalMarks = 0;
+    double avg;
+    char grade;
+    cout << "Enter the student's name: " << endl;
+    getline(cin, name);
+    cout << "Enter the registration number: " << endl;
+    cin >> regNo;
+    cout << "Enter the year of joining: " << endl;
+    cin >> yearOfJoining;
+    cout << "Enter the semester number: " << endl;
+    cin >> sem;
+    for (int i = 0; i < 5; ++i) {
+        cout << "Enter marks for " << subjects[i] << " (out of 100): " << endl;
+        cin >> marks[i];
+        totalMarks += marks[i];
+    }
+    avg = totalMarks / 5.0;
+    if (avg >= 90) {
+        grade = 'A';
+    } else if (avg >= 80) {
+        grade = 'B';
+    } else if (avg >= 61) {
+        grade = 'C';
+    } else if (avg >= 51) {
+        grade = 'D';
+    } else if (avg >= 41) {
+        grade = 'E';
+    } else {
+        grade = 'F';
+    }
+
+    cout << "-------------------------------------------------------------------------------" << endl;
+    cout << "Score Card for Student: " << name << endl;
+    cout << "Registration Number: " << regNo << "    Semester: " << sem << "    Year: " << yearOfJoining << endl;
+    cout << "Grade Assigned: " << endl;
+    cout << "-------------------------------------------------------------------------------" << endl;
+    cout << "Serial No.   Subject Name                  Marks Scored (out of 100)" << endl;
+
+    for (int i = 0; i < 5; ++i) {
+        cout << setw(5) << i + 1 << setw(30) << subjects[i] << setw(15) << marks[i] << endl;
+    }
+
+    cout << "-------------------------------------------------------------------------------" << endl;
+    cout << "Total: " << totalMarks << endl;
+    cout << "Average: " << fixed << setprecision(2) << avg << endl;
+    cout << "Grade: " << grade << endl;
+    cout << "-------------------------------------------------------------------------------" << endl;
+
+    return 0;
+}
