@@ -1,0 +1,23 @@
+//
+// Created by vikit on 01-09-2024.
+//
+
+#include <iostream>
+using namespace std;
+int main() {
+    int totalSec, hours, min, sec;
+
+    // Ask the user to enter time in seconds
+    cout << "Enter the time in seconds: ";
+    cin >> totalSec;
+    if (totalSec < 0) {
+        cout << "Invalid input: Time Cannot be negative." << endl;
+    } else {
+        hours = totalSec / 3600;
+        totalSec = totalSec % 3600;
+        min = totalSec / 60;
+        sec = totalSec % 60;
+        cout << "The time is: " << hours << " hours, " << min << " minutes, " << sec << " seconds." << endl;
+    }
+    return 0;
+}
