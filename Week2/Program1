@@ -1,0 +1,84 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int lines;
+    cout << "Enter The Number Of Rows: ";
+    cin >> lines;
+
+    // Pattern 1: Star pattern
+    cout << "Pattern *" << endl;
+    for (int i = 0; i < lines; i++) {
+        for (int j = 0; j < lines - i; j++) {
+            cout << "* ";
+        }
+        cout << endl;
+    }
+
+    // Pattern 2: Alphabet pattern
+    cout << "Pattern ABCD" << endl;
+    for (int i = 0; i < lines; i++) {
+        for (char c = 'A'; c < 'A' + (lines - i); c++) {
+            cout << c << " ";
+        }
+        cout << endl;
+    }
+
+    // Pattern 3: Floyd's Triangle
+    cout << "Pattern 1-100" << endl;
+    int number = 1;
+    for (int i = 1; i <= lines; i++) {
+        for (int j = 1; j <= i; j++) {
+            cout << number << " ";
+            number++;
+        }
+        cout << endl;
+    }
+
+    // Patterns with nested while loops
+
+    // Pattern 1: Star pattern
+    cout << "Pattern * with while loops" << endl;
+    int i = 0;
+    while (i < lines) {
+        int j = 0;
+        while (j < lines - i) {
+            cout << "* ";
+            j++;
+        }
+        cout << endl;
+        i++;
+    }
+
+    // Pattern 2: Alphabet pattern
+    cout << "Pattern ABCD with while loops" << endl;
+    int x = 0;
+    while (x < lines) {
+        char c = 'A';
+        int remainingChars = lines - x;
+        while (remainingChars > 0) {
+            cout << c << " ";
+            c++;
+            remainingChars--;
+        }
+        cout << endl;
+        x++;
+    }
+
+    // Pattern 3: Floyd's Triangle
+    cout << "Pattern 1-100 with while loops" << endl;
+    number = 1;
+    int p = 1;
+    while (p <= lines) {
+        int q = 1;
+        while (q <= p) {
+            cout << number << " ";
+            number++;
+            q++;
+        }
+        cout << endl;
+        p++;
+    }
+
+    return 0;
+}
