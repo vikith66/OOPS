@@ -1,0 +1,42 @@
+#include <iostream>
+using namespace std;
+
+bool isPerfectCube(int n, int &cubeRoot) {
+    if (n < 0) {
+        n = -n;
+        int root = 0;
+        while (root * root * root < n) {
+            root++;
+        }
+        if (root * root * root == n) {
+            cubeRoot = -root;  // Negative root for negative n
+            return true;
+        }
+        return false;
+    } else {
+        int root = 0;
+        while (root * root * root < n) {
+            root++;
+        }
+        if (root * root * root == n) {
+            cubeRoot = root;
+            return true;
+        }
+        return false;
+    }
+}
+
+int main() {
+    int number;
+    cout << "Enter a number: ";
+    cin >> number;
+
+    int cubeRoot;
+    if (isPerfectCube(number, cubeRoot)) {
+        cout << number << " is a perfect cube, cube root is " << cubeRoot << "." << endl;
+    } else {
+        cout << number << " is not a perfect cube." << endl;
+    }
+
+    return 0;
+}
