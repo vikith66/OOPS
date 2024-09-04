@@ -1,0 +1,43 @@
+#include <iostream>
+
+using namespace std;
+
+void make Change(int amount) {
+
+int coins[]=(500, 200, 100, 50, 20,10,5,1);
+
+int numCoins=sizeof(coins)/sizeof(coins[0]);
+
+cout<<"Change for "<<amount<<":"<<endl; for(int i=0;i<numCoins;i++) {
+
+int count=amount/coins[i]; if(count>0) {
+
+cout<<coins[i]<<": "<<count<<endl; amount--count*coins[i];
+
+6
+
+}
+
+int main() {
+
+int bill, cash;
+
+cout<<"Enter the total bill amount:";
+
+cin>>bill;
+
+cout<<"Enter the cash paid:";
+
+cin>>cash;
+
+int balance=cash-bill;
+
+if(balance<0) (
+
+cout<<"Insufficient cash paid."<<endl;
+
+return 1;
+
+}
+
+make Change (balance); return 0;
