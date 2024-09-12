@@ -1,0 +1,359 @@
+//Create a flight class that has private data members: flight number (integer), 
+destination (characters), distance (float), fuel (float). 
+#include <iostream>
+
+using namespace std;
+
+class Flight {
+private:
+    int flight_number;
+    char destination[50];
+    float distance;
+    float fuel;
+
+    void calculate_fuel() {
+        if (distance <= 1000) {
+            fuel = 500;
+        } else if (distance > 1000 && distance <= 2000) {
+            fuel = 1100;
+        } else {
+            fuel = 2200;
+        }
+    }
+
+public:
+       Flight() : flight_number(0), distance(500), fuel(0) {
+            }
+
+       void information_entry() {
+        cout << "Enter flight number: ";
+        cin >> flight_number;
+
+        cout << "Enter destination: ";
+        cin >> destination;
+
+        cout << "Enter distance (in kms): ";
+        cin >> distance;
+
+        calculate_fuel();
+    }
+
+     void display_info()  {
+        cout << "\nFlight Number: " << flight_number
+             << "\nDestination: " << destination
+             << "\nDistance: " << distance << " kms"
+             << "\nFuel Required: " << fuel << " liters\n";
+    }
+};
+
+int main() {
+    Flight flight1;
+
+    flight1.information_entry();
+    flight1.display_info();
+
+    return 0;
+}
+
+
+Define a class to represent the bank account of a customer where the data members 
+are Customer name, Account number, Account type [Savings(S), Fixed(F) or 
+Current(C)] and balance amount. 
+
+#include <iostream>
+
+using namespace std;
+
+class BankAccount {
+private:
+    char customer_name[50],account_type[20];
+    int account_number;
+    float balance;
+
+public:
+    BankAccount() :   balance(500) {}
+
+    void input_account_details() {
+        cout << "Enter customer name: ";
+        cin>>customer_name;
+       
+
+        cout << "Enter account number: ";
+        cin >> account_number;
+
+        cout << "Enter account type (S for Savings, F for Fixed, C for Current): ";
+        cin >> account_type;
+        
+        
+    }
+
+    void deposit(float amount) {
+        if (amount > 0) {
+            balance += amount;
+            cout << "Deposited Rs. " << amount << " into account number " << account_number << endl;
+        } else {
+            cout << "Invalid deposit amount!" << endl;
+        }
+    }
+
+    friend void withdraw(BankAccount &account, float amount);
+
+    void display_account_details()  {
+        cout << "\nAccount Details:\n";
+        cout << "Customer Name: " << customer_name << endl;
+        cout << "Account Number: " << account_number << endl;
+        cout << "Account Type: " << account_type << endl;
+        cout << "Balance: Rs. " << balance << endl;
+    }
+};
+
+void withdraw(BankAccount &account, float amount) {
+    if (amount > 0 && amount <= account.balance) {
+        account.balance -= amount;
+        cout << "Withdrew Rs. " << amount << " from account number " << account.account_number << endl;
+    } else {
+        cout << "Insufficient balance or invalid withdrawal amount!" << endl;
+    }
+}
+
+int main() {
+    BankAccount account1, account2;
+
+    cout << "Enter details for Account 1:\n";
+    account1.input_account_details();
+    
+    cout << "\nEnter details for Account 2:\n";
+    account2.input_account_details();
+
+    float amount;
+    cout << "\nAccount 1:\n";
+    account1.display_account_details();
+
+    cout << "Enter deposit amount for Account 1: ";
+    cin >> amount;
+    account1.deposit(amount);
+
+    cout << "Enter withdrawal amount for Account 1: ";
+    cin >> amount;
+    withdraw(account1, amount);
+
+    account1.display_account_details();
+
+    cout << "\nAccount 2:\n";
+    account2.display_account_details();
+
+    cout << "Enter deposit amount for Account 2: ";
+    cin >> amount;
+    account2.deposit(amount);
+
+    cout << "Enter withdrawal amount for Account 2: ";
+    cin >> amount;
+    withdraw(account2, amount);
+
+    account2.display_account_details();
+
+    return 0;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <cstring> // For strcpy and strcmp functions
+
+using namespace std;
+
+const int MAX_PLAYERS = 10;
+const int MAX_NAME_LENGTH = 50;
+const int MAX_CODE_LENGTH = 10;
+
+class CricketPlayer {
+private:
+    char player_code[MAX_CODE_LENGTH];
+    char player_name[MAX_NAME_LENGTH];
+    int matches_played;
+    int total_runs;
+    int not_outs;
+
+public:
+    CricketPlayer() : matches_played(0), total_runs(0), not_outs(0) {
+        player_code[0] = '\0';
+        player_name[0] = '\0';
+    }
+
+    void input_details() {
+        cout << "Player code: ";
+        cin.ignore(); // To handle any leftover newline character
+        cin.getline(player_code, MAX_CODE_LENGTH);
+
+        cout << "Player name: ";
+        cin.getline(player_name, MAX_NAME_LENGTH);
+
+        cout << "Number of matches played: ";
+        cin >> matches_played;
+
+        cout << "Total runs: ";
+        cin >> total_runs;
+
+        cout << "Number of times not out: ";
+        cin >> not_outs;
+        cin.ignore(); // To handle any leftover newline character after numeric input
+    }
+
+    void display_details() const {
+        cout << "\nPlayer code: " << player_code
+             << "\nPlayer name: " << player_name
+             << "\nNumber of matches played: " << matches_played
+             << "\nTotal runs: " << total_runs
+             << "\nNumber of times not out: " << not_outs << endl;
+    }
+
+    float average_runs() const {
+        return matches_played > 0 ? static_cast<float>(total_runs) / matches_played : 0;
+    }
+
+    int get_total_runs() const {
+        return total_runs;
+    }
+
+    int get_matches_played() const {
+        return matches_played;
+    }
+
+    const char* get_name() const {
+        return player_name;
+    }
+
+    bool operator<(const CricketPlayer& other) const {
+        return total_runs < other.total_runs;
+    }
+};
+
+void bubble_sort(CricketPlayer players[], int num_players) {
+    for (int i = 0; i < num_players - 1; ++i) {
+        for (int j = 0; j < num_players - i - 1; ++j) {
+            if (players[j].get_total_runs() < players[j + 1].get_total_runs()) {
+                // Swap players[j] and players[j + 1]
+                CricketPlayer temp = players[j];
+                players[j] = players[j + 1];
+                players[j + 1] = temp;
+            }
+        }
+    }
+}
+
+void display_sorted_players(CricketPlayer players[], int num_players) {
+    bubble_sort(players, num_players);
+    cout << "\nPlayers sorted by total runs:\n";
+    for (int i = 0; i < num_players; ++i) {
+        players[i].display_details();
+    }
+}
+
+int main() {
+    CricketPlayer players[MAX_PLAYERS];
+    int num_players = 0;
+    int choice;
+
+    while (true) {
+        cout << "\nMenu:\n";
+        cout << "1. Enter details of players\n";
+        cout << "2. Display average runs of a single player\n";
+        cout << "3. Average runs of all players\n";
+        cout << "4. Display the list of players in sorted order as per total runs\n";
+        cout << "5. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+        cin.ignore(); // To handle any leftover newline character after numeric input
+
+        switch (choice) {
+            case 1:
+                if (num_players >= MAX_PLAYERS) {
+                    cout << "Maximum number of players reached.\n";
+                } else {
+                    players[num_players].input_details();
+                    num_players++;
+                }
+                break;
+
+            case 2: {
+                if (num_players == 0) {
+                    cout << "No player data available.\n";
+                    break;
+                }
+
+                int p_no;
+                cout << "Enter player number (1 to " << num_players << ") to display average runs: ";
+                cin >> p_no;
+                cin.ignore(); // To handle any leftover newline character after numeric input
+
+                if (p_no > 0 && p_no <= num_players) {
+                    cout << "Average runs of " << players[p_no - 1].get_name() << ": " << players[p_no - 1].average_runs() << endl;
+                } else {
+                    cout << "Invalid player number.\n";
+                }
+                break;
+            }
+
+            case 3: {
+                if (num_players == 0) {
+                    cout << "No player data available.\n";
+                    break;
+                }
+
+                float total_runs = 0;
+                int total_matches = 0;
+
+                for (int i = 0; i < num_players; ++i) {
+                    total_runs += players[i].get_total_runs();
+                    total_matches += players[i].get_matches_played();
+                }
+
+                float average_runs = total_matches > 0 ? total_runs / total_matches : 0;
+                cout << "Average runs of all players: " << average_runs << endl;
+                break;
+            }
+
+            case 4:
+                if (num_players == 0) {
+                    cout << "No player data available.\n";
+                    break;
+                }
+
+                display_sorted_players(players, num_players);
+                break;
+
+            case 5:
+                return 0;
+
+            default:
+                cout << "Invalid choice, please try again.\n";
+                break;
+        }
+    }
+
+    return 0;
+}
