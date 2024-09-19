@@ -1,0 +1,454 @@
+P1.
+//To create a flight class
+//Sushmitha Shetty
+//240970099
+//29.08.2024
+#include<iostream>
+#include<string>
+using namespace std;
+class flight
+{
+        private:
+                int number;
+                string destination;
+                float distance,fuel;
+
+                void calculate_fuel()
+                {
+                        if(distance<=1000)
+                                fuel=500;
+                        else if(distance>1000 && distance<=2000)
+                                fuel=1100;
+                        else
+                                fuel=2200;
+                }
+        public:
+                flight():number(0),destination(""),fuel(500),distance(0){
+                calculate_fuel();
+                }
+
+                void information_entry()
+                {
+                        cout<<"Enter the flight number:";
+                        cin>>number;
+                        cout<<"Enter destination:";
+                        cin>>destination;
+                        cout<<"Enter distance:";
+                        cin>>distance;
+                        calculate_fuel();
+                }
+                void display_info()
+                {
+                        cout<<"Flight Deatils:"<<endl;
+                        cout<<"Flight Number:"<<number<<endl;
+                        cout<<"Destination:"<<destination<<endl;
+                        cout<<"Distance:"<<distance<<" kilometers"<<endl;
+                        cout<<"Fuel:"<<fuel<<" liters"<<endl;
+                }
+};
+int main()
+{
+        flight flight;
+        flight.information_entry();
+        flight.display_info();
+        return 0;
+}
+
+OUTPUT:
+Enter the flight number:101
+Enter destination:London
+Enter distance:2500
+Flight Deatils:
+Flight Number:101
+Destination:London
+Distance:2500 kilometers
+Fuel:2200 liters
+mca099@telnet:~/OOP_2024/week4$ ./a.out
+Enter the flight number:102
+Enter destination:Dubai
+Enter distance:1500
+Flight Deatils:
+Flight Number:102
+Destination:Dubai
+Distance:1500 kilometers
+Fuel:1100 liters
+mca099@telnet:~/OOP_2024/week4$ ./a.out
+Enter the flight number:103
+Enter destination:Delhi
+Enter distance:990
+Flight Deatils:
+Flight Number:103
+Destination:Delhi
+Distance:990 kilometers
+Fuel:500 liters
+
+
+P2.
+//To define a class to represent the bank account of a customer
+//Sushmitha Shetty
+//240970099
+//29.08.2024
+#include<iostream>
+#include<string>
+using namespace std;
+class BankAccount
+{
+        private:
+                string cust_name;
+                int acc_no;
+                char acc_type;
+                float balance;
+        public:
+                BankAccount():balance(500.0){}
+
+                void enter_info()
+                {
+                        cout<<"\nEnter details of the customer:"<<endl;
+                        cout<<"Customer Name:";
+                        cin>>cust_name;
+                        cout<<"Account Number:";
+                        cin>>acc_no;
+                        cout<<"Account Type[Savings(S), Fixed(F) or Current(C)]:";
+                        cin>>acc_type;
+                }
+                void deposit()
+                {
+                        float amount;
+                        cout<<"Enter the amount to be deposited:";
+                        cin>>amount;
+                        if(amount<0)
+                        {
+                                cout<<"Insufficient Balance"<<endl;
+                        }
+                        else
+                        {
+                                balance+=amount;
+                                cout<<"Amount Deposited:"<<amount<<endl;
+                        }
+                }
+                friend void withdraw(BankAccount &acc);
+		        void display_info() const
+                {
+                        cout<<"Details of the Customer:"<<endl;
+                        cout<<"Customer Name:"<<cust_name<<endl;
+                        cout<<"Account Number: "<<acc_no<<endl;
+                        cout<<"Account Type: "<<acc_type<<endl;
+                        cout<<"Balance: "<<balance<<endl;
+                }
+};
+void withdraw(BankAccount &acc)
+{
+        float amount;
+        cout<<"Enter the amount to be withdrawn:";
+        cin>>amount;
+        if(amount>0 && amount<=acc.balance)
+        {
+                acc.balance-=amount;
+                cout<<"Amount withdrawn:"<<amount<<endl;
+        }
+        else if(amount<0)
+        {
+                cout<<"Invalid amount"<<endl;
+        }
+        else
+        {
+                cout<<"Insufficient Balance"<<endl;
+        }
+}
+int main()
+{
+        BankAccount acc1,acc2;
+        acc1.enter_info();
+        acc1.deposit();
+        withdraw(acc1);
+        acc1.display_info();
+        acc2.enter_info();
+        acc2.deposit();
+        withdraw(acc2);
+        acc2.display_info();
+        return 0;
+}
+
+OUTPUT:
+Enter details of the customer:
+Customer Name:Abhi
+Account Number:101
+Account Type[Savings(S), Fixed(F) or Current(C)]:S
+Enter the amount to be deposited:1000
+Amount Deposited:1000
+Enter the amount to be withdrawn:300
+Amount withdrawn:300
+Details of the Customer:
+Customer Name:Abhi
+Account Number: 101
+Account Type: S
+Balance: 1200
+
+Enter details of the customer:
+Customer Name:Ashwini
+Account Number:102
+Account Type[Savings(S), Fixed(F) or Current(C)]:F
+Enter the amount to be deposited:100
+Amount Deposited:100
+Enter the amount to be withdrawn:800
+Insufficient Balance
+Details of the Customer:
+Customer Name:Ashwini
+Account Number: 102
+Account Type: F
+Balance: 600
+
+P3.
+//necessary class and member function definitions for a cricket player object
+//Sushmitha Shetty
+//240970099
+
+#include<iostream>
+#include<string>
+using namespace std;
+class CricketPlayer
+{
+        public:
+                string code,name;
+                int matches,runs,notout;
+                CricketPlayer()
+                {
+                        code="";
+                        name="";
+                        matches=0;
+                        runs=0;
+                        notout=0;
+                }
+                void acceptDetails()
+                {
+                        cout<<"Enter Player Code:";
+                        cin>>code;
+                        cout<<"Enter Player name:";
+                        cin>>name;
+                        cout<<"Enter matches played:";
+                        cin>>matches;
+                        cout<<"Enter Total runs:";
+                        cin>>runs;
+                        cout<<"Enter Number of Times Not Out:";
+                        cin>>notout;
+                }
+                void displayDetails()
+                {
+                        cout<<"******************************"<<endl;
+                        cout<<"Player Code:"<<code<<endl;
+                        cout<<"Player Name:"<<name<<endl;
+                        cout<<"Matches Played:"<<matches<<endl;
+                        cout<<"Total runs:"<<runs<<endl;
+                        cout<<"Number of Times NOTOUT:"<<notout<<endl;
+                }
+                float calculateAverage()
+                {
+                        return (float)runs/matches;
+                }
+};
+void displayAverageRuns(CricketPlayer players[],int n)
+{
+        float totalAverage=0;
+        for(int i=0;i<n;i++)
+        {
+                totalAverage+=players[i].calculateAverage();
+        }
+        cout<<"Average Runs of All Players:"<<totalAverage/n<<endl;
+}
+int main()
+{
+        const int MAX_PLAYERS=10;
+        CricketPlayer players[MAX_PLAYERS];
+        int choice,n;
+        do{
+                cout<<"****************************"<<endl;
+                cout<<"\n Menu:"<<endl;
+                cout<<"1.Enter Deatils of Players"<<endl;
+                cout<<"2.Display average runs of a single player"<<endl;
+                cout<<"3.Average runs of all players"<<endl;
+                cout<<"4.Display the list of players in sorted order"<<endl;
+                cout<<"5.exit"<<endl;
+                cout<<"Enter Your Choice:";
+                cin>>choice;
+                switch(choice){
+                        case 1:{
+                                       cout<<"Enter Number of players:";
+                                       cin>>n;
+                                       for(int i=0;i<n;i++)
+                                       {
+                                               cout<<"Enter Details of Player"<<i+1<<":"<<endl;
+                                               players[i].acceptDetails();
+                                       }
+                                       break;
+                               }
+                        case 2:{
+                                       int playerIndex;
+                                       cout<<"Enter Player Index:(1-"<<n<<"):";
+                                       cin>>playerIndex;
+                                       cout<<"Average Runs of Player"<<playerIndex<<":"<<players[playerIndex-1].calculateAverage()<<endl;
+                                       break;
+                               }
+                        case 3:
+                               displayAverageRuns(players,n);
+                               break;
+                        case 4:
+                               for(int i=0;i<n-1;i++){
+                                       for(int j=i+1;j<n;j++){
+                                               if (players[i].runs<players[j].runs)
+                                               {
+                                                       swap(players[i],players[j]);
+                                               }
+                                       }
+                               }
+                               cout<<"List of Players in Sorted Order:"<<endl;
+                               for(int i=0;i<n;i++)
+                               {
+                                       players[i].displayDetails();
+                                       cout<<endl;
+                               }
+                               break;
+                        case 5:
+                               break;
+                        default:
+                               cout<<"Invalid Choice!"<<endl;
+                }
+        }while(choice!=5);
+    return 0;
+}
+OUTPUT:
+****************************
+
+Menu:
+1.Enter Deatils of Players
+2.Display average runs of a single player
+3.Average runs of all players
+4.Display the list of players in sorted order
+5.exit
+Enter Your Choice:1
+Enter Number of players:2
+Enter Details of Player1:
+Enter Player Code:101
+Enter Player name:Abhi
+Enter matches played:2
+Enter Total runs:110
+Enter Number of Times Not Out:2
+Enter Details of Player2:
+Enter Player Code:102
+Enter Player name:Raj
+Enter matches played:2
+Enter Total runs:98
+Enter Number of Times Not Out:3
+****************************
+
+ Menu:
+1.Enter Deatils of Players
+2.Display average runs of a single player
+3.Average runs of all players
+4.Display the list of players in sorted order
+5.exit
+Enter Your Choice:2
+Enter Player Index:(1-2):1
+Average Runs of Player1:55
+****************************
+
+ Menu:
+1.Enter Deatils of Players
+2.Display average runs of a single player
+3.Average runs of all players
+4.Display the list of players in sorted order
+5.exit
+Enter Your Choice:3
+Average Runs of All Players:52
+****************************
+
+ Menu:
+1.Enter Deatils of Players
+2.Display average runs of a single player
+3.Average runs of all players
+4.Display the list of players in sorted order
+5.exit
+nter Your Choice:4
+List of Players in Sorted Order:
+******************************
+Player Code:101
+Player Name:Abhi
+Matches Played:2
+Total runs:110
+Number of Times NOTOUT:2
+
+******************************
+Player Code:102
+Player Name:Raj
+Matches Played:2
+Total runs:98
+Number of Times NOTOUT:3
+
+****************************
+
+ Menu:
+1.Enter Deatils of Players
+2.Display average runs of a single player
+3.Average runs of all players
+4.Display the list of players in sorted order
+5.exit
+Enter Your Choice:5
+
+P4.
+//C++ program to create a class called Complex
+//Sushmitha Shetty
+//240970099
+// 05/09/2024
+
+#include<iostream>
+using namespace std;
+class Complex{
+        double real,imag;
+        public:
+        Complex(double x=0,double y=0):real(x),imag(y){}
+        Complex add(int s1){
+                return Complex(s1+real,imag);
+        }
+        Complex add(Complex &c){
+                return Complex(real+c.real,imag+c.imag);
+        }
+        void disp(){
+                cout<<real;
+                if(imag>=0)
+                        cout<<" +"<<imag<<" i";
+                else
+                        cout<<" -"<<-imag<<" i";
+                cout<<endl;
+        }
+};
+int main(){
+        int s;
+        double r,i,r1,i1;
+        cout<<"Enter the integer number:";
+        cin>>s;
+        cout<<"Enter the real part of complex number 1:";
+        cin>>r;
+        cout<<"Enter the imaginary part of complex number 1:";
+        cin>>i;
+        cout<<"enter the real part of complex number 2:";
+        cin>>r1;
+        cout<<"Enter the imaginary part of complex number 2:";
+        cin>>i1;
+        Complex c1(r,i);
+        Complex c2(r1,i1);
+        cout<<"Adding an integer to a complex number:"<<endl;
+        Complex result1=c1.add(s);
+        result1.disp();
+        cout<<"Adding 2 Complex numbers:";
+        Complex result2=c1.add(c2);
+        result2.disp();
+        return 0;
+}
+OUTPUT:
+Enter the integer number:2
+Enter the real part of complex number 1:8
+Enter the imaginary part of complex number 1:9
+enter the real part of complex number 2:1
+Enter the imaginary part of complex number 2:6
+Adding an integer to a complex number:
+10 +9 i
+Adding 2 Complex numbers:9 +15 i
