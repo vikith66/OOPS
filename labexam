@@ -1,50 +1,72 @@
-#include<iostream>
+#include <iostream>
+#include <cmath> // Include cmath for pow function
 using namespace std;
-class matrix{
-        private:
-                int row, col;
-                int  data[50][50],result[50][50];
-        public:
-                matrix(int row,int col){
-                        for(int i = 0;i < row;i++){
-                                for(int j = 0; j < col; j++){
-                                        data[i][j] = 0;
-                                }
-                        }
-                }
-                matrix operator ^(int num){
-                        for(int i =0;i < row;i++){
-                                for(int j = 0; j < col; j++){
-                                        result[i][j] = data[i][j] + num;
-                                }
-                        }
-                }
-                void input(int row,int col){
-                        for(int i = 0; i < row; i++){
-                                for(int j = 0; j < col;j++){
-                                        cout<<"Enter Element For "<<i<<j<<endl;
-                                        cin>>data[i][j];
-                                }
-                        }
-                }
-                void display(int row,int col){
-                        for(int i = 0; i < row; i++){
-                                for(int j = 0; j < col;j++){
-                                        cout<<result[i][j] << " ";
-                                }
-                                cout<<endl;
-                        }
-                }
+
+class Matrix {
+private:
+    int row, col;
+    int data[50][50]; // Store the matrix data
+    int result[50][50]; // Store the result of operations
+
+public:
+    // Constructor to initialize the matrix dimensions
+    Matrix(int r, int c) : row(r), col(c) {
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                data[i][j] = 0; // Initialize all elements to 0
+            }
+        }
+    }
+
+    // Method to perform exponentiation operation with an integer
+    Matrix operator^(int num) {
+        Matrix temp(row, col); // Create a new matrix to hold the result
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                temp.result[i][j] = pow(data[i][j], num); // Compute power
+            }
+        }
+        return temp; // Return the result matrix
+    }
+
+    // Method to input matrix elements
+    void input() {
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                cout << "Enter Element For (" << i << "," << j << "): ";
+                cin >> data[i][j];
+            }
+        }
+    }
+
+    // Method to display the result matrix
+    void display() {
+        cout << "Result Matrix:" << endl;
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                cout << result[i][j] << " ";
+            }
+            cout << endl;
+        }
+    }
 };
-int main(){
-        int row,col,n;
-        cout<<"Enter Number Of Rows :"<<endl;
-        cin >> row;
-        cout<<"Enter Number Of Columns :"<<endl;
-        cin >> col;
-        matrix m1(row,col);
-        cout<<"Enter the Elements for The matrix :"<<endl;
-        m1.input(row,col);
-        cout<<"Enter The nth Power :"<<endl;
-        cin >> n;
-        matrix res(row,col);
+
+int main() {
+    int row, col, n;
+    cout << "Enter Number Of Rows: ";
+    cin >> row;
+    cout << "Enter Number Of Columns: ";
+    cin >> col;
+
+    Matrix m1(row, col); // Create a matrix object
+    cout << "Enter the Elements for The matrix:" << endl;
+    m1.input(); // Input matrix elements
+
+    cout << "Enter The integer power to raise each element to: ";
+    cin >> n;
+
+    Matrix res = m1 ^ n; // Perform power operation
+    res.display(); // Display the result matrix
+
+    return 0;
+}
