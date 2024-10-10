@@ -1,0 +1,116 @@
+#include <iostream>
+using namespace std;
+
+class Person {
+    int id;
+    char fname[25];
+public:
+    void inputData() {
+        cout<<"Enter ID: "<<endl;
+        cin>>id;
+        cin.ignore();
+        cout<<"Enter Full Name: "<<endl;
+        cin.getline(fname, 25);
+    }
+    void displayData() {
+        cout<<"ID: "<<id<<endl;
+        cout<<"Full Name: "<<fname<<endl;
+    }
+};
+
+class Teach : public Person {
+public:
+    char subject[20];
+    void inputTeach() {
+        inputData();
+        cout<<"Enter Subject: "<<endl;
+        cin.getline(subject, 20);
+    }
+    void displayTeach() {
+        displayData();
+        cout<<"Subject: "<<subject<<endl;
+    }
+};
+
+class NonTeach : public Person {
+public:
+    char dept[20];
+    void inputNon() {
+        inputData();
+        cout<<"Enter Department: "<<endl;
+        cin.getline(dept, 20);
+    }
+    void displayNonTeach() {
+        displayData();
+        cout<<"Department: "<<dept<<endl;
+    }
+};
+
+class Instructor : public Person {
+public:
+    int exp;
+    void inputInst() {
+        inputData();
+        cout<<"Enter Experience (in years): "<<endl;
+        cin>>exp;
+        cin.ignore();
+    }
+    void displayInst() {
+        displayData();
+        cout<<"Experience: "<<exp<<" years"<<endl;
+    }
+};
+
+int main() {
+    int num1, num2, num3;
+
+    cout<<"Enter the number of Teaching Staffs: "<<endl;
+    cin>>num1;
+    Teach tech[num1];
+    
+    for (int i = 0; i < num1; i++) {
+        tech[i].inputTeach();
+        cout<<endl;
+    }
+
+    cout<<"Enter the number of Non-Teaching Staffs: "<<endl;
+    cin>>num2;
+    NonTeach nontech[num2];
+    
+    for (int i = 0; i < num2; i++) {
+        nontech[i].inputNon();
+        cout<<endl;
+    }
+
+    cout<<"Enter the number of Instructors you want to add: "<<endl;
+    cin>>num3;
+    Instructor inst[num3];
+    
+    for (int i = 0; i < num3; i++) {
+        inst[i].inputInst();
+        cout<<endl;
+    }
+
+    cout<<"\t----------Details of Teaching Staffs--------"<<endl;
+
+    for (int i = 0; i < num1; i++) {
+        tech[i].displayTeach();
+        cout<<endl;
+    }
+
+    cout<<"\t--------Details of Non-Teaching Staffs--------"<<endl;
+
+    for (int i = 0; i < num2; i++) {
+        nontech[i].displayNonTeach();
+        cout<<endl;
+    }
+
+    cout<<"\t--------Details of Instructors-------"<<endl;
+
+    for (int i = 0; i < num3; i++) {
+        inst[i].displayInst();
+        cout<<endl;
+    }
+
+    return 0;
+}
