@@ -1,0 +1,94 @@
+#include<iostream>
+using namespace std;
+class Employee {
+        int eno;
+        char ename[25];
+        public:
+        void getEmp(){
+                cout<<"Id: ";
+                cin>>eno;
+                cout<<"name: ";
+                cin>>ename;
+        }
+        void displayEmp(){
+                cout<<"id : "<<eno<<endl;
+                cout<<"name : "<<ename<<endl;
+        }
+};
+class Faculty : public Employee {
+        char qual[10];
+        int exp;
+        public:
+        void getFaculty(){
+                getEmp();
+                cout<<"Qualification: ";
+                cin>>qual;
+                cout<<"Years of experience: ";
+                cin>>exp;
+        }
+        void displayFaculty(){
+                displayEmp();
+                cout<<"Qualification : "<<qual<<endl;
+                cout<<"Years of experience : "<<exp<<endl;
+        }
+};
+class NonTeaching : public Employee {
+        char grade;
+        public:
+        void getNonTech(){
+                getEmp();
+                cout<<"Grade: ";
+                cin>>grade;
+        }
+        void displayNonTech(){
+                displayEmp();
+                cout<<"Grade : "<<grade<<endl;
+        }
+};
+class Permanent : public Faculty {
+        float basic, allowance;
+        public:
+        void getPer(){
+                getFaculty();
+                cout<<"Basic pay: ";
+                cin>>basic;
+                cout<<"Academic allowance: ";
+                cin>>allowance;
+        }
+        void displayPer(){
+                displayFaculty();
+                cout<<"Basic Pay : "<<basic<<endl;
+                cout<<"Academic allowance : "<<allowance<<endl;
+        }
+};
+class Contract : public Faculty {
+        int years;
+        public:
+        void getCont(){
+                getFaculty();
+                cout<<"Probation years: ";
+                cin>>years;
+        }
+        void displayCont(){
+                displayFaculty();
+                cout<<"Probation years : "<<years<<endl;
+        }
+};
+int main() {
+        Permanent p;
+        Contract c;
+        NonTeaching nt;
+        cout<<"----Enter permanent faculty details-------"<<endl;
+        p.getPer();
+        cout<<"-----Enter contract faculty details------"<<endl;
+        c.getCont();
+        cout<<"-----Enter details of non-teaching staff----"<<endl;
+        nt.getNonTech();
+        cout<<"-----Permanent Faculty------"<<endl;
+        p.displayPer();
+        cout<<"-----Contract Faculty-----"<<endl;
+        c.displayCont();
+        cout<<"----Non Teaching Staff------"<<endl;
+        nt.displayNonTech();
+        return 0;
+}
