@@ -7,8 +7,9 @@ class Employee {
         void getEmp(){
                 cout<<"Id: ";
                 cin>>eno;
+                cin.ignore();
                 cout<<"name: ";
-                cin>>ename;
+                cin.getline(ename,25);
         }
         void displayEmp(){
                 cout<<"id : "<<eno<<endl;
