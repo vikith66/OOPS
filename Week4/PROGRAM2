@@ -1,0 +1,61 @@
+#include<iostream>
+#include<string>
+using namespace std;
+class BankAccount{
+    private:
+        string custName;
+        int accNumber;
+        char accType;
+        float balance;
+    public:
+        BankAccount(string cname,int accno,char atype): custName(cname),accNumber(accno),accType(atype),balance(500){}
+    
+        void deposit(float amount){
+            if(amount > 0){
+                balance += amount;
+                cout<<"Deposited Rs : "<<balance<<endl;
+            } else {
+                cout<<"Invalid Amount"<<endl;
+            }
+        }
+        friend void withdraw(BankAccount &acc, float amount);
+        void display(){
+            cout<<"Account Details:"<<endl;
+            cout<<"Customer Name :"<<custName<<endl;
+            cout<<"Account Number :"<<(accType == 'S'?"Savings":(accType == 'F')?"Fixed":"Current");
+            cout<<"\nBalance : "<<balance<<endl;
+        }
+};
+void withdraw(BankAccount &acc, float amount){
+    if(amount > 0 && amount <= acc.balance){
+        acc.balance -= amount;
+        cout<<"Withdrawn Rs."<<amount<<endl;
+    } else if(amount > acc.balance){
+        cout<<"Insufficient Amount"<<endl;
+    } else {
+        cout<<"Invalid Amount"<<endl;
+    }
+}
+
+int main(){
+    string custName;
+    int accNumber;
+    char accType;
+    cout<<"Enter Customer Name : ";
+    getline(cin,custName);
+    cout<<"Enter Account Number : ";
+    cin>>accNumber;
+    cout<<"Enter Account Type S-F-C : ";
+    cin>>accType;
+    BankAccount acc(custName,accNumber,accType);
+    acc.display();
+    float amtW, amtD;
+    cout<<"\nEnter Amount To Deposit :";
+    cin>>amtD;
+    acc.deposit(amtD);
+    cout<<"\nEnter Amount To Withdrawn :";
+    cin>>amtW;
+    withdraw(acc,amtW);
+    acc.display();
+    return 0;
+}
