@@ -7,7 +7,7 @@ float imag;
 public:
 Complex() : real(0),imag(0) {}
 Complex(float r, float i) : real(r), imag(i) {}
-void display() const {
+void display(){
 cout<<real;
 if (imag >= 0) {
 cout<<" + "<<imag<<"i"<<endl;
