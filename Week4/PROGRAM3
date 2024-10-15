@@ -1,136 +1,101 @@
-#include <iostream>
-#include <string>
+#include<iostream>
 using namespace std;
-
-class CricketPlayer {
+class Cricket{
 public:
-    string code, name;
-    int matches, runs, notout;
-
-    // Default constructor
-    CricketPlayer() : code(""), name(""), matches(0), runs(0), notout(0) {}
-
-    void acceptDetails() {
-        cout << "Enter Player Code: ";
-        cin >> code;
-        cout << "Enter Player Name: ";
-        cin >> name;
-        cout << "Enter Matches Played: ";
-        cin >> matches;
-        cout << "Enter Total Runs: ";
-        cin >> runs;
-        cout << "Enter Number of Times Not Out: ";
-        cin >> notout;
-    }
-
-    void displayDetails() const {
-        cout << "******************************" << endl;
-        cout << "Player Code: " << code << endl;
-        cout << "Player Name: " << name << endl;
-        cout << "Matches Played: " << matches << endl;
-        cout << "Total Runs: " << runs << endl;
-        cout << "Number of Times NOT OUT: " << notout << endl;
-    }
-
-    float calculateAverage() const {
-        return (matches > 0) ? static_cast<float>(runs) / matches : 0.0f; // Avoid division by zero
-    }
-};
-
-void displayAverageRuns(CricketPlayer players[], int n) {
-    float totalAverage = 0.0f;
-    for (int i = 0; i < n; i++) {
-        totalAverage += players[i].calculateAverage();
-    }
-    cout << "Average Runs of All Players: " << (totalAverage / n) << endl;
+char code[50],name[50];
+int matches,runs,notout;
+Cricket(){
+code[0] = '\0';
+name[0] = '\0';
+matches = 0;
+runs = 0;
+notout = 0;
 }
-
-int main() {
-    const int MAX_PLAYERS = 10;
-    CricketPlayer players[MAX_PLAYERS];
-    int choice, n = 0;
-
-    do {
-        cout << "****************************" << endl;
-        cout << "\n Menu:" << endl;
-        cout << "1. Enter Details of Players" << endl;
-        cout << "2. Display Average Runs of a Single Player" << endl;
-        cout << "3. Average Runs of All Players" << endl;
-        cout << "4. Display the List of Players in Sorted Order" << endl;
-        cout << "5. Exit" << endl;
-        cout << "Enter Your Choice: ";
-        cin >> choice;
-
-        switch (choice) {
-            case 1: {
-                if (n >= MAX_PLAYERS) {
-                    cout << "Maximum number of players reached!" << endl;
-                    break;
-                }
-                cout << "Enter Number of Players (remaining slots: " 
-                     << MAX_PLAYERS - n 
-                     << ", max allowed: " 
-                     << MAX_PLAYERS 
-                     << "): ";
-                int newPlayersCount;
-                cin >> newPlayersCount;
-
-                if (n + newPlayersCount > MAX_PLAYERS) {
-                    cout << "Cannot add more players than the maximum limit!"<<endl;
-                    break; 
-                }
-
-                for (int i = 0; i < newPlayersCount; i++) {
-                    cout << "Enter Details of Player " << (n + 1) + i<< ":"<<endl;
-                    players[n + i].acceptDetails();
-                }
-                n += newPlayersCount; // Update the count of players
-                break;
-            }
-            case 2: {
-                if (n == 0) {
-                    cout<< "No players available!"<<endl; 
-                    break; 
-                }
-                int playerIndex;
-                cout<< "Enter Player Index (1-"<< n<<"): ";
-                cin >> playerIndex;
-
-                if(playerIndex < 1 || playerIndex > n){
-                    cout<<"Invalid Player Index!"<<endl; 
-                    break; 
-                }
-
-                cout<< "Average Runs of Player "<< playerIndex<< ": "<< players[playerIndex - 1].calculateAverage()<<endl; 
-                break; 
-            }
-            case 3:
-                displayAverageRuns(players, n);
-                break;
-
-            case 4:
-                for (int i = 0; i < n - 1; i++) {
-                    for (int j = i + 1; j < n; j++) {
-                        if (players[i].runs < players[j].runs) {
-                            swap(players[i], players[j]);
-                        }
-                    }
-                }
-                
-                cout<< "List of Players in Sorted Order:"<<endl; 
-                for (int i = 0; i < n; i++) {
-                    players[i].displayDetails();
-                    cout<< endl; 
-                }
-                break;
-
-            case 5:
-                break;
-
-            default:
-                cout<< "Invalid Choice!"<<endl; 
-        }
-    } while (choice != 5);
-    
-    return 0;
+void getDetails(){
+cout<<"Enter Player Code:";
+cin>>code;
+cout<<"Enter Player name:";
+cin>>name;
+cout<<"Enter matches played:";
+cin>>matches;
+cout<<"Enter Total runs:";
+cin>>runs;
+cout<<"Enter Number of Times Not Out:";
+cin>>notout;
+}
+void displayDetails(){
+cout<<"******************************"<<endl;
+cout<<"Player Code:"<<code<<endl;
+cout<<"Player Name:"<<name<<endl;
+cout<<"Matches Played:"<<matches<<endl;
+cout<<"Total runs:"<<runs<<endl;
+cout<<"Number of Times NOTOUT:"<<notout<<endl;
+}
+float calcAvg(){
+return (float)runs/matches;
+}
+};
+void displayAvg(Cricket players[],int n){
+float totalAverage = 0;
+for (int i = 0; i < n; i++){
+totalAverage += players[i].calcAvg();
+}
+cout<<"Average Runs of All Players:"<<totalAverage/n<<endl;
+}
+int main(){
+Cricket players[10];
+int choice, n;
+do{
+cout<<"****************************"<<endl;
+cout<<"Menu:"<<endl;
+cout<<"1.Enter Details of Players"<<endl;
+cout<<"2.Display average runs of a single player"<<endl;
+cout<<"3.Average runs of all players"<<endl;
+cout<<"4.Display the list of players in sorted order"<<endl;
+cout<<"5.exit"<<endl;
+cout<<"Enter Your Choice:";
+cin>>choice;
+switch (choice){
+case 1: 
+cout<<"Enter Number of Players (1-10): ";
+cin>>n;
+if (n < 1 || n > 10){
+cout<<"Please enter a valid number of players (1-10)."<<endl;
+}else{
+for (int i = 0; i < n; i++){
+cout<<"Enter Details of Player"<<i + 1<<":"<<endl;
+players[i].getDetails();
+}
+}
+break;
+case 2: 
+int playerNo;
+cout<<"Enter Player Index:(1-" << n << "):";
+cin>>playerNo;
+cout<<"Average Runs of Player"<<playerNo<<":"<<players[playerNo-1].calcAvg()<<endl;
+break;
+case 3:
+displayAvg(players,n);
+break;
+case 4:
+for (int i=0;i < n-1;i++){
+for (int j = i+1; j<n;j++){
+if (players[i].runs < players[j].runs){
+swap(players[i], players[j]);
+}
+}
+}
+cout<<"List of Players in Sorted Order:"<<endl;
+for (int i = 0;i < n; i++){
+players[i].displayDetails();
+cout<<endl;
+}
+break;
+case 5:
+break;
+default:
+cout<<"Invalid Choice!"<<endl;
+}
+}while (choice != 5);
+return 0;
 }
