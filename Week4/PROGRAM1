@@ -2,40 +2,39 @@
 using namespace std;
 class Flight {
 private:
-	int flightNo;
-	char destination[100];
-	float distance,fuel;
-
-	void calculate_fuel() {
-		if(distance <= 1000) {
-			fuel = 500;
-		} else if(distance > 1000 && distance <= 2000) {
-			fuel = 1100;
-		} else if(distance > 2000) {
-			fuel = 2200;
-		}
-	}
+int flightNo;
+char destination[100];
+float distance,fuel;
+void calculate_fuel() {
+if(distance <= 1000) {
+fuel = 500;
+} else if(distance > 1000 && distance <= 2000) {
+fuel = 1100;
+} else if(distance > 2000) {
+fuel = 2200;
+}
+}
 public:
-	Flight(): distance(500) {}
-	void information_entry(){
-	    cout<<"Enter Fight Number :"<<endl;
-	    cin>>flightNo;
-	    cout<<"Enter The Destination : "<<endl;
-	    cin>>destination;
-	    cout<<"Enter The Distance : ";
-	    cin>>distance;
-	    calculate_fuel();
-	}
-	void  display_info(){
-	    cout<<"Flight Number : "<<flightNo<<endl;
-	    cout<<"Flight Destination : "<<destination<<endl;
-	    cout<<"Distance To Travel : "<<distance<<endl;
-	    cout<<"Fuel For The Flight : "<<fuel<<endl;
-	}
+Flight(): distance(500) {}
+void information_entry(){
+cout<<"Enter Fight Number :"<<endl;
+cin>>flightNo;
+cout<<"Enter The Destination : "<<endl;
+cin>>destination;
+cout<<"Enter The Distance : ";
+cin>>distance;
+calculate_fuel();
+}
+void display_info(){
+cout<<"Flight Number : "<<flightNo<<endl;
+cout<<"Flight Destination : "<<destination<<endl;
+cout<<"Distance To Travel : "<<distance<<endl;
+cout<<"Fuel For The Flight : "<<fuel<<endl;
+}
 };
 int main(){
-    Flight f;
-    f.information_entry();
-    f.display_info();
-    return 0;
+Flight f;
+f.information_entry();
+f.display_info();
+return 0;
 }
