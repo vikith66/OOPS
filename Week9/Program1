@@ -1,0 +1,136 @@
+#include<iostream>
+using namespace std;
+class Employee{
+int id;
+char name[25];
+public:
+void getEmp(){
+cout<<"ID : "; 
+cin>>id;
+cout<<"Name : "; 
+cin>>name;
+}
+void displayEmp(){
+cout<<"ID : "<<id<<endl;
+cout<<"Name : "<<name<<endl;
+}
+virtual void cal() = 0; 
+};
+class Education{
+char qualification[20];
+int year;
+public:
+void getEdu(){
+cout<<"Qualification : "; 
+cin>>qualification;
+cout<<"Year of Passing : "; 
+cin>>year;
+}
+void displayEdu(){
+cout<<"Qualification : "<<qualification<<endl;
+cout<<"Year of Passing : "<<year<<endl;
+}
+};
+class Laborer : public Employee{
+int sal, tax;
+char job[20];
+public:
+void getLaborer() {
+getEmp();
+cout<<"Job : "; 
+cin>>job;
+cout<<"Salary : "; 
+cin>>sal;
+}
+void cal() {
+if (sal > 25000)
+tax = sal * 0.12;
+else
+tax = sal * 0.06;
+}
+void displayLaborer(){
+displayEmp();
+cout<<"Job : "<<job<<endl;
+cout<<"Salary : "<<sal<<endl;
+cout<<"Tax : "<<tax<<endl;
+cout<<"Salary after applying tax : "<<(sal - tax)<<endl;
+}
+};
+class Scientist : public Employee,public Education{
+char university[20];
+int sal, tax;
+public:
+void getSci(){
+getEmp();
+getEdu();
+cout<<"University : "; 
+cin>>university;
+cout<<"Salary : "; 
+cin>>sal;
+}
+void cal() {
+if (sal > 25000)
+tax = sal * 0.12;
+else
+tax = sal * 0.06;
+}
+void displayScientist(){
+displayEmp();
+displayEdu();
+cout<<"University : "<<university<<endl;
+cout<<"Salary : "<<sal<<endl;
+cout<<"Tax : "<<tax<<endl;
+cout<<"Salary after applying tax : "<<(sal - tax)<<endl;
+}
+};
+class Manager : public Employee,public Education{
+char company[20];
+int exp, sal, tax;
+public:
+void getManager(){
+getEmp();
+getEdu();
+cout<<"Company name : "; 
+cin>>company;
+cout<<"Experience : "; 
+cin>>exp;
+cout<<"Salary : "; 
+cin>>sal;
+}
+void cal() {
+if (sal > 25000)
+tax = sal * 0.12;
+else
+tax = sal * 0.06; 
+}
+void displayManager(){
+displayEmp();
+displayEdu();
+cout<<"Company name : "<<company<<endl;
+cout<<"Experience : "<<exp<<endl; 
+cout<<"Salary : "<<sal<<endl; 
+cout<<"Tax : "<<tax<<endl; 
+cout<<"Salary after applying tax : "<<(sal - tax)<<endl; 
+}
+};
+int main() {
+Laborer l;
+Scientist s;
+Manager m;
+cout<<"\n*****Enter Laborer Details*****"<<endl;
+l.getLaborer(); 
+l.cal();
+cout<<"\n*****Enter Scientist Details*****"<<endl;
+s.getSci(); 
+s.cal();
+cout<<"\n*****Enter Manager Details*****"<<endl;
+m.getManager(); 
+m.cal();
+cout<<"\n*****Laborer Details*****"<<endl;
+l.displayLaborer(); 
+cout<<"\n*****Scientist Details*****"<<endl;
+s.displayScientist(); 
+cout<<"\n*****Manager Details*****"<<endl;
+m.displayManager(); 
+return 0; 
+}
