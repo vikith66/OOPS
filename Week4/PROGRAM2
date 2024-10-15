@@ -21,7 +21,7 @@ friend void withdraw(BankAccount &acc, float amount);
 void display(){
 cout<<"Account Details:"<<endl;
 cout<<"Customer Name :"<<custName<<endl;
-cout<<"Account Number :"<<(accType == 'S'?"Savings":(accType == 'F')?"Fixed":"Current");
+cout<<"Account Type :"<<(accType == 'S'?"Savings":(accType == 'F')?"Fixed":"Current");
 cout<<"\nBalance : "<<balance<<endl;
 }
 };
