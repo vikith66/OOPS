@@ -15,13 +15,13 @@ cout<<" + "<<imag<<"i"<<endl;
 cout<<" - "<<-imag<<"i"<<endl;
 }
 }
-Complex add(int s1,Complex &s2) {
+Complex add(int s1,Complex s2) {
 Complex result;
 result.real = s1 + s2.real;
 result.imag = s2.imag;
 return result;
 }
-Complex add(Complex &s1,Complex &s2) {
+Complex add(Complex s1,Complex s2) {
 Complex result;
 result.real = s1.real + s2.real;
 result.imag = s1.imag + s2.imag;
