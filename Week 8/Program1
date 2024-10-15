@@ -1,0 +1,79 @@
+#include<iostream>
+using namespace std;
+class Student{
+char name[50];
+int regno;
+public:
+void getdata(){
+cout<<"***Enter Details Of Student***"<<endl;
+cout<<"Regno : "; 
+cin>>regno;
+cout<<"Name : "; 
+cin>>name;
+}
+void display(){
+cout<<"***Student Report***"<<endl;
+cout<<"Regno : "<<regno<<endl;
+cout<<"Name : "<<name<<endl;
+}
+};
+class exam:public virtual Student{
+public:
+int mark1,mark2,mark3;
+void getExam(){
+getdata();
+cout<<"\nEnter 3 subject marks:"<<endl;
+cout<<"Subject 1: "; 
+cin>>mark1;
+cout<<"Subject 2: "; 
+cin>>mark2;
+cout<<"Subject 3: "; 
+cin>>mark3;
+}
+void displayExam(){
+display();
+cout<<"\n***Marks***"<<endl;
+cout<<"Subject 1: "<<mark1<<endl;
+cout<<"Subject 2: "<<mark2<<endl;
+cout<<"Subject 3: "<<mark3<<endl;
+}
+};
+class sports:public virtual Student{
+char sport[20];
+public:
+float weightage;
+void getdataSports(){
+cout<<"Enter sports details"<<endl;
+cout<<"Sport name : "; 
+cin>>sport;
+cout<<"Weightage in % : "; 
+cin>>weightage;
+}
+void displaySports(){
+cout<<"\n***Sports***"<<endl;
+cout<<"Sports name : "<<sport<<endl;
+cout<<"Sport weightage : "<<weightage<<endl;
+}
+};
+class result:public  exam ,public sports{
+float total,result;
+public:
+void getResult(){
+getExam();
+getdataSports();
+}
+void displayResult(){
+displayExam();
+displaySports();
+total=mark1+mark2+mark3;
+result = (total) * weightage / 100;
+cout<<"\nTotal marks = "<<total<<endl;
+cout<<"Result = "<<result<<endl;
+}
+};
+int main(){
+result r;
+r.getResult();
+r.displayResult();
+return 0;
+}
