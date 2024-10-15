@@ -1,0 +1,62 @@
+#include <iostream>
+using namespace std;
+class shape{
+protected:
+double len1,len2;
+public:
+void getdata(){
+cout<<"Enter the lengths to compute area : " << endl;
+cout<<"Length 1 : "; 
+cin>>len1;
+cout<<"Length 2 : "; 
+cin>>len2;
+}
+virtual void displayArea() = 0;
+};
+class triangle : public shape{
+double area;
+public:
+void displayArea(){
+area=0.5*len1*len2;
+cout<<"Base = "<<len1<<endl;
+cout<<"Height = "<<len2<<endl;
+cout<<"Area of triangle = "<<area<<endl;
+}
+};
+class rectangle : public shape{
+double area;
+public:
+void displayArea(){
+area = len1 * len2;
+cout << "Length = " << len1 << endl;
+cout << "Breadth = " << len2 << endl;
+cout << "Area of rectangle = " << area << endl;
+}
+};
+int main(){
+triangle t;
+rectangle r;
+int ch;
+do{
+cout<<"1. Calculate area of triangle." << endl;
+cout<<"2. Calculate area of rectangle." << endl;
+cout<<"Enter your choice : "; 
+cin>>ch;
+switch (ch){
+case 1:
+cout << "**********TRIANGLE**********" << endl;
+t.getdata();
+t.displayArea();
+break;
+case 2:
+cout << "**********RECTANGLE**********" << endl;
+r.getdata();
+r.displayArea();
+break;
+default:
+cout << "Invalid choice" << endl;
+exit(0);
+}
+} while (ch != 0);
+return 0;
+}
