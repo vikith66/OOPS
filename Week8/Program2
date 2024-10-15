@@ -1,0 +1,93 @@
+#include <iostream>
+using namespace std;
+class Employee{
+char name[25];
+int code;
+public:
+void getdata(){
+cout<<"Enter employee details" << endl;
+cout<<"Code : "; 
+cin>>code;
+cout<<"Name : "; 
+cin>>name;
+}
+void display(){
+cout<<"\n*****Employee Details*****" << endl;
+cout<<"Code : " << code << endl;
+cout<<"Name : " << name << endl;
+}
+};
+class Account : public virtual Employee {
+public:
+int pay;
+void getPay(){
+cout<<"Pay : "; 
+cin >> pay;
+}
+void displayPay(){
+cout<<"Pay : " << pay << endl;
+}
+};
+class Admin : public virtual Employee {
+public:
+int exp;
+void getExp() {
+cout<<"Experience : "; 
+cin >> exp;
+}
+void displayExp() {
+cout<<"Experience : "<<exp<<endl;
+}
+};
+class Master : public Account, public Admin {
+public:
+void getMaster() {
+getdata();
+getPay();
+getExp();
+}
+void updateMaster() {
+displayMaster();
+cout<<"Enter the details to update"<<endl;
+cout<<"Pay : "; 
+cin>>pay;
+cout<<"Experience : "; 
+cin>>exp;
+cout<<"\tUpdate successful."<<endl;
+}
+void displayMaster() {
+display();
+displayPay();
+displayExp();
+}
+};
+int main() {
+Master m;
+int ch;
+do {
+cout<<"\n*****MENU*****"<<endl;
+cout<<"1. Create."<<endl;
+cout<<"2. Update."<<endl;
+cout<<"3. Display."<<endl;
+cout<<"4. Exit."<<endl;
+cout<<"Enter your choice : "; 
+cin >> ch;
+switch (ch) {
+case 1:
+m.getMaster();
+break;
+case 2:
+m.updateMaster();
+break;
+case 3:
+m.displayMaster();
+break;
+case 4:
+cout<<"\tExiteded." << endl;
+return 0;
+default:
+cout<<"Invalid choice." << endl;
+}
+} while (ch != 4);
+return 0;
+}
