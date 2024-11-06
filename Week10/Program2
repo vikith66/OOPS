@@ -1,0 +1,51 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <cctype>
+
+using namespace std;
+
+int main() {
+    ofstream outFile("multiline.txt");
+    if (!outFile) {
+        cerr << "Error opening file for writing." << endl;
+        return 1;
+    }
+    string line;
+    cout << "Enter text (enter a blank line to stop):" << endl;
+    while (true) {
+        getline(cin, line);
+        if (line.empty()) break; 
+        outFile << line << endl; 
+    }
+    
+    outFile.close(); 
+    int totalChars = 0, totalLetters = 0, totalDigits = 0, totalLines = 0, totalSpaces = 0;
+
+    ifstream inFile("multiline.txt");
+    
+    if (!inFile) {
+        cerr << "Error opening file for reading." << endl;
+        return 1;
+    }
+
+    while (getline(inFile, line)) {
+        totalLines++; 
+        totalChars += line.length(); 
+        for (char c : line) {
+            if (isalpha(c)) totalLetters++; 
+            else if (isdigit(c)) totalDigits++; 
+            else if (isspace(c)) totalSpaces++; 
+        }
+    }
+
+    inFile.close(); 
+
+    cout << "Total number of characters: " << totalChars << endl;
+    cout << "Total number of letters: " << totalLetters << endl;
+    cout << "Total number of digits: " << totalDigits << endl;
+    cout << "Total number of lines: " << totalLines << endl;
+    cout << "Total number of spaces: " << totalSpaces << endl;
+
+    return 0;
+}
