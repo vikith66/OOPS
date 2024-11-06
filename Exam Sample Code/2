@@ -1,0 +1,52 @@
+#include<iostream>
+#include <fstream>
+#include <string>
+
+using namespace std;
+
+struct Student {
+	string sname;
+	int score;
+};
+
+int main() {
+	int n;
+	cout<<" Enter The Number Of Students : ";
+	cin>>n;
+	Student st[n];
+	for(int i = 0; i < n ; i++) {
+		cout<<"Enter Details Of Student "<<i+1<<" : "<<endl;
+		cout<<"Student Name : "<<endl;
+		cin.ignore();
+		getline(cin,st[i].sname);
+		cout<<"Student Score : "<<endl;
+		cin>>st[i].score;
+		cin.ignore();
+	}
+	ofstream outFile("students.txt",ios::app);
+	if(!outFile) {
+		cerr<<"Error Opening A File";
+		return 0;
+	}
+	for(int i = 0 ; i < n ; i++) {
+		outFile << st[i].sname << endl;
+		outFile << st[i].score << endl;
+	}
+	outFile.close();
+
+	ifstream inFile("students.txt");
+	if (!inFile) {
+		cerr << "Error opening students.txt for reading!" << endl;
+		return 1;
+	}
+
+	cout << "\nStudent Details"<<endl;
+	for(int i = 0 ; i < n ; i++) {
+		getline(inFile,st[i].sname);
+		inFile >> st[i].score;
+		inFile.ignore();
+		cout<<"Student Name : "<<st[i].sname<<"\nStudent Score : "<<st[i].score<<endl;
+	}
+	inFile.close();
+	return 0;
+}
